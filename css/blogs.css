@@ -22,7 +22,11 @@
         font-size: 1.3rem;
     }
 }
-
+@media screen and (max-width:767px) {
+    .hr-19{
+        padding: 5%;
+    }
+}
 
 
 body{
