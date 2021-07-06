@@ -114,6 +114,15 @@ li{
 
 .user-profile-bottom-wrapper{
     display: flex;
+
+}
+
+.user-profile-bottom-user-about,.user-profile-bottom-user-name{
+    font-family: 'Fouders Grotesk Mono',Arial,sans-serif;
+    line-height: 16px;
+    letter-spacing: 2px;
+    font-weight: 400;
+     color: black;
 }
 
 .user-profile-bottom-image{
