@@ -2,6 +2,12 @@
     margin: 0;
     padding: 0;
 }
+
+::selection{
+    background-color: yellow;
+    color: black;
+}
+
 .header-content{
     width:50%
 }
