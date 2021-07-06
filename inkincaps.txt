@@ -1,0 +1,422 @@
+1. What are the different data types present in javascript?
+-primitive : predefined already defined, it has certain value
+string,number, boolean, undefined,Symbol(ES6 ver,to store unique and anonymous values)
+
+-non-primitive - define by the programmer,used to call methods to perform certain operations,it can be null
+Objects-to store collection of data	
+
+eg collection of data in key-value pairs,ordered and unordered list
+
+primitive can store single value but to store muliple and complex values we used non-primitive
+
+2.Hoisting:
+
+calling before execution
+-to avoid hoisting javascript uses strict mode "use strict" on top of the code
+
+
+3."==" and "===":
+"==" is use to compare values and "===" is used to compare values and types
+
+4.coercion:
+var x = 24;
+var y = "Hello";
+x + y   // Returns "24Hello";
+
+5. Is javascript a statically typed or a dynamically typed language?
+statically typing- variables and values have type,variables cannot change type
+string name;name="john";name = 34//give an error
+
+dynaically typing - variables have no types, values have types, variables can change types
+var name; name="john";name=23 //give the output
+so js is dynamically typed
+
+6. What is NaN property in JavaScript?
+**Note- isNaN() function converts the given value to a Number type, and then equates to NaN.
+isNaN("Hello")  // Returns true
+isNaN(345)   // Returns false
+isNaN('1')  // Returns false, since '1' is converted to Number type which results in 0 ( a number) 
+isNaN(true) // Returns false, since true converted to Number type results in 1 ( a number)
+isNaN(false) // Returns false
+isNaN(undefined) // Returns true
+
+
+7.pass by value 
+var y = 234;
+var z = y;
+
+var y = #8454; // y pointing to address of the value 234
+var z = y;         
+var z = #5411; // z pointing to a completely new address of the value 234        
+// Changing the value of y
+y = 23;
+console.log(z);  // Returns 234, since z points to a new address in the memory so changes in y will not effect z
+
+
+8.Pass by reference?
+var obj = { name: "Vivek", surname: "Bisht" };
+var obj2 = obj;
+
+var obj = #8711;  // obj pointing to address of { name: "Vivek", surname: "Bisht" }
+
+var obj2 = obj;
+        
+var obj2 = #8711; // obj2 pointing to the same address 
+// changing the value of obj1
+obj1.name = "Akki";
+console.log(obj2);
+// Returns {name:"Akki", surname:"Bisht"} since both the variables are pointing to the same address.
+
+9. Explain Higher Order Functions in javascript.
+Functions that operate on other functions, either by taking them as arguments or by returning them, are called higher-order functions.
+function higherOrder(fn) {
+  fn();
+}
+     
+higherOrder(function() { console.log("Hello world") }); 
+
+10. Explain “this” keyword.
+The “this” keyword refers to the object that the function is a property of.
+
+The value of “this” keyword will always depend on the object that is invoking the function.
+
+Confused? Let’s understand the above statements by examples:
+function doSomething() {
+  console.log(this);
+}
+        
+doSomething();
+The “this” keyword refers to the object that the function is a property of.
+In the above code, function is a property of which object?
+
+Since the function is invoked in the global context, the function is a property of the global object.
+
+Therefore, the output of the above code will be the global object. Since we ran the above code inside the browser, the global object is the window object.
+
+Example 2:
+
+var obj = {
+    name:  "vivek",
+    getName: function(){
+    console.log(this.name);
+  }
+}
+        
+obj.getName();
+
+In the above code, at the time of invocation, the getName function is a property of the object obj , therefore, the this keyword will refer to the object obj , and hence the output will be “vivek”.
+
+11. Explain call()?
+function sayHello(){
+  return "Hello " + this.name;
+}
+        
+var obj = {name: "Sandy"};
+        
+sayHello.call(obj);
+        
+// Returns "Hello Sandy"
+          
+
+call() method allows an object to use the method (function) of another object.
+
+12.apply()?
+apply()
+
+The apply method is similar to the call() method. The only difference is that,
+
+call() method takes arguments separately whereas, apply() method takes arguments as an array.
+
+function saySomething(message){
+  return this.name + " is " + message;
+}
+        
+var person4 = {name:  "John"};
+        
+saySomething.apply(person4, ["awesome"]);
+
+13. Explain Scope and Scope Chain in javascript.
+Scope in JS, determines the accessibility of variables and functions at various parts in one’s code.
+
+In general terms, the scope will let us know at a given part of code, what are the variables and functions that we can or cannot access.
+
+There are three types of scopes in JS:
+
+Global Scope
+var globalVariable = "Hello world";
+
+function sendMessage(){
+  return globalVariable; // can access globalVariable since it's written in global space
+}
+
+function sendMessage2(){
+  return sendMessage(); // Can access sendMessage function since it's written in global space
+}
+
+sendMessage2();  // Returns “Hello world”
+
+Local or Function Scope
+Any variables or functions declared inside a function have local/function scope, which means that all the variables and functions declared inside a function, can be accessed from within the function and not outside of it.
+function awesomeFunction(){
+  var a = 2;
+
+  var multiplyBy2 = function(){
+    console.log(a*2); // Can access variable "a" since a and multiplyBy2 both are written inside the same function
+  }
+}
+console.log(a); // Throws reference error since a is written in local scope and cannot be accessed outside
+
+multiplyBy2(); // Throws reference error since multiplyBy2 is written in local scope
+
+
+Block Scope
+Block Scope
+
+Block scope is related to the variables declared using let and const. Variables declared with var do not have block scope.
+
+Block scope tells us that any variable declared inside a block { }, can be accessed only inside that block and cannot be accessed outside of it.
+{
+  let x = 45;
+}
+
+console.log(x); // Gives reference error since x cannot be accessed outside of the block
+
+for(let i=0; i<2; i++){
+  // do something
+}
+
+console.log(i); // Gives reference error since i cannot be accessed outside of the for loop block
+
+
+Scope Chanin?
+var y = 24;
+
+function favFunction(){
+  var x = 667;
+  var anotherFavFunction = function(){
+    console.log(x); // Does not find x inside anotherFavFunction, so looks for variable inside favFunction, outputs 667
+  }
+
+  var yetAnotherFavFunction = function(){
+    console.log(y); // Does not find y inside yetAnotherFavFunction, so looks for variable inside favFunction and does not find it, so looks for variable in global scope, finds it and outputs 24
+  }
+
+  anotherFavFunction();
+  yetAnotherFavFunction();
+}
+
+
+favFunction();
+
+14. Explain Closures in JavaScript.
+Closures is an ability of a function to remember the variables and functions that are declared in its outer scope.
+var Person = function(pName){
+  var name = pName;
+
+  this.getName = function(){
+    return name;
+  }
+}
+
+var person = new Person("Neelesh");
+console.log(person.getName());
+
+
+Let’s understand closures by example:
+
+function randomFunc(){
+  var obj1 = {name:"Vivian", age:45};
+
+  return function(){
+    console.log(obj1.name + " is "+ "awesome"); // Has access to obj1 even when the randomFunc function is executed
+
+  }
+}
+
+var initialiseClosure = randomFunc(); // Returns a function
+
+initialiseClosure(); 
+
+15. What are object prototypes?
+
+On top of the chain is Object.prototype. Every prototype inherits properties and methods from the Object.prototype.
+
+A prototype is a blueprint of an object. Prototype allows us to use properties and methods on an object even if the properties and methods do not exist on the current object.
+Let’s see prototypes help us use methods and properties:
+
+var arr = [];
+arr.push(2);
+
+console.log(arr); // Outputs [2]
+
+In the code above, as one can see, we have not defined any property or method called push on the array “arr” but the javascript engine does not throw an error.
+
+The reason being the use of prototypes. As we discussed before, Array objects inherit properties from the Array prototype.
+
+The javascript engine sees that the method push does not exist on the current array object and therefore, looks for the method push inside the Array prototype and it finds the method.
+
+Whenever the property or method is not found on the current object, the javascript engine will always try to look in its prototype and if it still does not exist, it looks inside the prototype's prototype and so on.
+
+16. What are callbacks?
+Functions that are used as an argument to another function are called callback functions.
+function divideByHalf(sum){
+  console.log(Math.floor(sum / 2));
+}
+
+function multiplyBy2(sum){
+  console.log(sum * 2);
+}
+
+function operationOnSum(num1,num2,operation){
+  var sum = num1 + num2;
+  operation(sum);
+}
+
+operationOnSum(3, 3, divideByHalf); //3
+operationOnSum(5, 5, multiplyBy2); // Outputs 20
+
+17.What is memoization?
+Memoization is a form of caching where the return value of a function is cached based on its parameters. If the parameter of that function is not changed, the cached version of the function is returned.
+function addTo256(num){
+  return num + 256;
+}
+
+addTo256(20); // Returns 276
+addTo256(40); // Returns 296
+addTo256(20); // Returns 276
+
+function memoizedAddTo256(){
+  var cache = {};
+
+  return function(num){
+    if(num in cache){
+      console.log("cached value");
+      return cache[num]
+
+    }
+    else{
+      cache[num] = num + 256;
+      return cache[num];
+    }
+  }
+}
+
+var memoizedFunc = memoizedAddTo256();
+
+memoizedFunc(20); // Normal return
+memoizedFunc(20); // Cached return
+
+18. What is recursion in a programming language?
+Recursion is a technique to iterate over an operation by having a function call itself repeatedly until it arrives at a result.
+function add(number) {
+  if (number <= 0) {
+    return 0;
+  } else {
+    return number + add(number - 1);
+  }
+}
+
+add(3) => 3 + add(2)
+          3 + 2 + add(1)
+          3 + 2 + 1 + add(0)
+          3 + 2 + 1 + 0 = 6
+
+
+19. What is the use of a constructor function in javascript?
+Constructor functions are used to create objects in javascript.
+
+When do we use constructor functions?
+
+If we want to create multiple objects having similar properties and methods, constructor functions are used.
+
+function Person(name,age,gender){
+  this.name = name;
+  this.age = age;
+  this.gender = gender;
+}
+
+
+var person1 = new Person("Vivek", 76, "male");
+console.log(person1);
+
+var person2 = new Person("Courtney", 34, "female");
+console.log(person2);
+
+Q1: What is Routing Guard in Angular?
+Angular’s route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. They make this decision by looking for a true or false return value from a class which implements the given guard interface.
+
+There are five different types of guards and each of them is called in a particular sequence. The router’s behavior is modified differently depending on which guard is used. The guards are:
+
+CanActivate
+CanActivateChild
+CanDeactivate
+CanLoad
+Resolve
+
+import { Injectable } from '@angular/core';
+import { Router, CanActivate } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AuthGuardService implements CanActivate {
+  constructor(public auth: AuthService, public router: Router) {}
+  canActivate(): boolean {
+    if (!this.auth.isAuthenticated()) {
+      this.router.navigate(['login']);
+      return false;
+    }
+    return true;
+  }
+}
+
+Q4: Does TypeScript support all object oriented principles?
+he answer is YES. There are 4 main principles to Object Oriented Programming:
+
+Encapsulation,
+Inheritance,
+Abstraction, and
+Polymorphism.
+TypeScript can implement all four of them with its smaller and cleaner syntax.
+
+
+Q5:Git centralized work flow:
+Answer
+The Centralized Workflow uses a central repository to serve as the single point-of-entry for all changes to the project. The default development branch is called master and all changes are committed into this branch.
+
+Developers start by cloning the central repository. In their own local copies of the project, they edit files and commit changes. These new commits are stored locally.
+
+To publish changes to the official project, developers push their local master branch to the central repository. Before the developer can publish their feature, they need to fetch the updated central commits and rebase their changes on top of them.
+
+Compared to other workflows, the Centralized Workflow has no defined pull request or forking patterns.
+
+
+There are 4 things we can decorate in ECMAScript2016 (and Typescript): constructors, methods, properties and parameters.
+
+Q13: What is a Service, and when will you use it?
+
+Angular services are singleton objects which get instantiated only once during the lifetime of an application. They contain methods that maintain data throughout the life of an application, i.e. data does not get refreshed and is available all the time. The main objective of a service is to organize and share business logic, models, or data and functions with different components of an Angular application.
+
+The separation of concerns is the main reason why Angular services came into existence. An Angular service is a stateless object and provides some very useful functions.
+
+Q14: What is the difference between Classes and Interfaces in Typescript?
+
+15: Promises
+Promises
+Promises provide a mechanism to handle the results and errors from asynchronous operations. You can accomplish the same thing with callbacks, but promises provide improved readability via method chaining and succinct error handling.
+const isGreater = (a, b) => {
+  return new Promise ((resolve, reject) => {
+    if(a > b) {
+      resolve(true)
+    } else {
+      reject(false)
+    }
+    })
+}
+isGreater(1, 2)
+  .then(result => {
+    console.log('greater')
+  })
+ .catch(result => {
+    console.log('smaller')
+ })
+ 
